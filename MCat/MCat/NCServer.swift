@@ -10,10 +10,15 @@ import NIOCore
 import NIOPosix
 
 final class NCServer {
-    @Published var message:String = "MCat"
+    @Published var message:String
     
-    var host:String = "::1"
-    var port:Int = 9999
+    var host:String
+    var port:Int
+    
+    init(host:String = "::1", port:Int = 9999) {
+        (self.host, self.port) = (host, port)
+        self.message = "MCat \(self.host):\(self.port)"
+    }
     
     func start() -> Void {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
