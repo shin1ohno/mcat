@@ -13,7 +13,10 @@ struct MCatApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                  EmptyView()
+                }
+            .hidden()
         }
     }
     
@@ -29,8 +32,7 @@ struct MCatApp: App {
             }
         }
         
-        func applicationDidFinishLaunching(_ notification: Notification) {
-            Thread.detachNewThread {
+        func applicationDidFinishLaunching(_ notification: Notification) {            Thread.detachNewThread {
                 self.ncServer.start()
             }
         }

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5E1185D42742AFDF00283257 /* MCatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1185D32742AFDF00283257 /* MCatApp.swift */; };
-		5E1185D62742AFDF00283257 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1185D52742AFDF00283257 /* ContentView.swift */; };
 		5E1185D82742AFE000283257 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E1185D72742AFE000283257 /* Assets.xcassets */; };
 		5E1185DB2742AFE000283257 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E1185DA2742AFE000283257 /* Preview Assets.xcassets */; };
 		5E1185E62742AFE000283257 /* MCatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1185E52742AFE000283257 /* MCatTests.swift */; };
@@ -41,7 +40,6 @@
 /* Begin PBXFileReference section */
 		5E1185D02742AFDF00283257 /* MCat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MCat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E1185D32742AFDF00283257 /* MCatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCatApp.swift; sourceTree = "<group>"; };
-		5E1185D52742AFDF00283257 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5E1185D72742AFE000283257 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E1185DA2742AFE000283257 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5E1185DC2742AFE000283257 /* MCat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MCat.entitlements; sourceTree = "<group>"; };
@@ -107,13 +105,12 @@
 			isa = PBXGroup;
 			children = (
 				5E118609274310E900283257 /* Info.plist */,
+				5E1186052742B10700283257 /* MCatMenu.swift */,
 				5E1185D32742AFDF00283257 /* MCatApp.swift */,
-				5E1185D52742AFDF00283257 /* ContentView.swift */,
 				5E1185D72742AFE000283257 /* Assets.xcassets */,
+				5E1186072742B12200283257 /* NCServer.swift */,
 				5E1185DC2742AFE000283257 /* MCat.entitlements */,
 				5E1185D92742AFE000283257 /* Preview Content */,
-				5E1186052742B10700283257 /* MCatMenu.swift */,
-				5E1186072742B12200283257 /* NCServer.swift */,
 			);
 			path = MCat;
 			sourceTree = "<group>";
@@ -282,7 +279,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E1186062742B10700283257 /* MCatMenu.swift in Sources */,
-				5E1185D62742AFDF00283257 /* ContentView.swift in Sources */,
 				5E1185D42742AFDF00283257 /* MCatApp.swift in Sources */,
 				5E1186082742B12200283257 /* NCServer.swift in Sources */,
 			);
