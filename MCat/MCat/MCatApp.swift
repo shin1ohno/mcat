@@ -14,8 +14,8 @@ struct MCatApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                  EmptyView()
-                }
+                EmptyView()
+            }
             .hidden()
         }
     }
@@ -32,7 +32,8 @@ struct MCatApp: App {
             }
         }
         
-        func applicationDidFinishLaunching(_ notification: Notification) {            Thread.detachNewThread {
+        func applicationDidFinishLaunching(_ notification: Notification) {
+            Thread.detachNewThread {
                 self.ncServer.start()
             }
         }
