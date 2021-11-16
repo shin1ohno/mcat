@@ -15,9 +15,9 @@ final class NCServer {
     var host:String
     var port:Int
     
-    init(host:String = "::1", port:Int = 9999) {
+    init(host:String = "::0", port:Int = 9999) {
         (self.host, self.port) = (host, port)
-        self.message = "MCat \(self.host):\(self.port)"
+        self.message = "MCat runnig on \(self.host):\(self.port)"
     }
     
     func start() -> Void {
