@@ -57,14 +57,13 @@ final private class EchoHandler: ChannelInboundHandler {
     }
     
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
-        let inBuff = self.unwrapInboundIn(data)
-        let s = inBuff.getString(at: 0, length: inBuff.readableBytes) ?? "MCat"
+        let s = dataToString(data: data)
         
-        DispatchQueue.main.async {
-            self.server.message = s.trimmingCharacters(in: .whitespacesAndNewlines)
+        DispatchQueue.main.async { //This causes UI text change so it should be done in the main thread
+            self.server.message = s
         }
-        
-        context.write(data, promise: nil)
+
+        self.writeStringToContext(string: s, context: context)
     }
     
     public func channelReadComplete(context: ChannelHandlerContext) {
@@ -74,6 +73,20 @@ final private class EchoHandler: ChannelInboundHandler {
     public func errorCaught(context: ChannelHandlerContext, error: Error) {
         print("error: ", error)
         context.close(promise: nil)
+    }
+    
+    private func dataToString(data: NIOAny) -> String {
+        let inBuff = self.unwrapInboundIn(data)
+        var s = inBuff.getString(at: 0, length: inBuff.readableBytes)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if (s == "") {s = "🤯Invalid? 😳empty?"}
+        return s
+    }
+    
+    private func writeStringToContext(string: String, context: ChannelHandlerContext) -> Void {
+        let res = "\(string)\n"
+        var buf = context.channel.allocator.buffer(capacity: res.utf8.count)
+        buf.writeString(res)
+        context.write(self.wrapOutboundOut(buf), promise: nil)
     }
 }
 
