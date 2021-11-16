@@ -26,7 +26,7 @@ struct MCatApp: App {
         var sub: AnyCancellable!
         
         func applicationWillFinishLaunching(_ notification: Notification) {
-            statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+            self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
             self.sub = self.ncServer.$message.sink() {
                 self.statusItem.button?.title = $0
             }
