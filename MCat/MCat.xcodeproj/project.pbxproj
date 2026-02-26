@@ -14,7 +14,6 @@
 		5E11860B27430AB200283257 /* NCServerE2ETests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11860A27430AB100283257 /* NCServerE2ETests.swift */; };
 		5E1185F02742AFE000283257 /* MCatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1185EF2742AFE000283257 /* MCatUITests.swift */; };
 		5E1185F22742AFE000283257 /* MCatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1185F12742AFE000283257 /* MCatUITestsLaunchTests.swift */; };
-		5E1186002742B04000283257 /* NIOConcurrencyHelpers in Frameworks */ = {isa = PBXBuildFile; productRef = 5E1185FF2742B04000283257 /* NIOConcurrencyHelpers */; };
 		5E1186022742B04000283257 /* NIOCore in Frameworks */ = {isa = PBXBuildFile; productRef = 5E1186012742B04000283257 /* NIOCore */; };
 		5E1186042742B04000283257 /* NIOPosix in Frameworks */ = {isa = PBXBuildFile; productRef = 5E1186032742B04000283257 /* NIOPosix */; };
 		5E1186062742B10700283257 /* MCatMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1186052742B10700283257 /* MCatMenu.swift */; };
@@ -64,7 +63,6 @@
 			files = (
 				5E1186022742B04000283257 /* NIOCore in Frameworks */,
 				5E1186042742B04000283257 /* NIOPosix in Frameworks */,
-				5E1186002742B04000283257 /* NIOConcurrencyHelpers in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +161,6 @@
 			);
 			name = MCat;
 			packageProductDependencies = (
-				5E1185FF2742B04000283257 /* NIOConcurrencyHelpers */,
 				5E1186012742B04000283257 /* NIOCore */,
 				5E1186032742B04000283257 /* NIOPosix */,
 			);
@@ -645,11 +642,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5E1185FF2742B04000283257 /* NIOConcurrencyHelpers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5E1185FE2742B04000283257 /* XCRemoteSwiftPackageReference "swift-nio" */;
-			productName = NIOConcurrencyHelpers;
-		};
 		5E1186012742B04000283257 /* NIOCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E1185FE2742B04000283257 /* XCRemoteSwiftPackageReference "swift-nio" */;
