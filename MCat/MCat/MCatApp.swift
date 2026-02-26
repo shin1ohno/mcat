@@ -13,8 +13,11 @@ struct MCatApp: App {
         MenuBarExtra {
             MCatMenu(server: server)
         } label: {
-            Label(server.message, systemImage: "network")
-                .task { await server.start() }
+            HStack(spacing: 4) {
+                Image(systemName: "network")
+                MarqueeText(text: server.message)
+            }
+            .task { await server.start() }
         }
     }
 }
