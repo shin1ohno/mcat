@@ -13,8 +13,6 @@ struct MCatMenu: View {
     }
 }
 
-struct MCatMenu_Previews: PreviewProvider {
-    static var previews: some View {
-        MCatMenu()
-    }
+#Preview {
+    MCatMenu()
 }

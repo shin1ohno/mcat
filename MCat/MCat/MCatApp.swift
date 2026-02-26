@@ -19,22 +19,24 @@ struct MCatApp: App {
             .hidden()
         }
     }
-    
+
+    @MainActor
     class AppDelegate: NSObject, NSApplicationDelegate {
-        var ncServer = NCServer()
+        let ncServer = NCServer()
         var statusItem: NSStatusItem!
-        var sub: AnyCancellable!
-        
+        var observation: AnyCancellable!
+
         func applicationWillFinishLaunching(_ notification: Notification) {
             self.statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-            self.sub = self.ncServer.$message.sink() {
-                self.statusItem.button?.title = $0
+            self.observation = self.ncServer.$message.receive(on: RunLoop.main).sink { [weak self] in
+                self?.statusItem.button?.title = $0
             }
         }
-        
+
         func applicationDidFinishLaunching(_ notification: Notification) {
+            let server = self.ncServer
             Thread.detachNewThread {
-                self.ncServer.start()
+                server.start()
             }
         }
     }
