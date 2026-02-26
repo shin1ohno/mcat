@@ -16,29 +16,28 @@ private enum TCPError: Error {
     case receiveFailed
 }
 
+@MainActor
 final class NCServerE2ETests: XCTestCase {
 
     private var server: NCServer!
     private var port: Int!
+    private var serverTask: Task<Void, Never>!
 
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
         port = Int.random(in: 49152...65535)
         server = NCServer(host: "127.0.0.1", port: port)
 
         let s = server!
-        Thread.detachNewThread {
-            s.start()
-        }
+        serverTask = Task { await s.start() }
 
-        waitForServerReady(port: port)
+        try await waitForServerReady(port: port)
     }
 
-    override func tearDown() {
+    override func tearDown() async throws {
         server.stop()
-        Thread.sleep(forTimeInterval: 0.1)
+        serverTask.cancel()
+        try await Task.sleep(for: .milliseconds(100))
         server = nil
-        super.tearDown()
     }
 
     // MARK: - Echo Tests
@@ -81,13 +80,13 @@ final class NCServerE2ETests: XCTestCase {
 
     // MARK: - Message Update Tests
 
-    func testMessageUpdatedAfterEcho() throws {
+    func testMessageUpdatedAfterEcho() async throws {
         _ = try tcpSendReceive("Ping")
 
-        // message is updated via DispatchQueue.main.async, pump the run loop
+        // message is updated via Task { @MainActor in ... }
         let deadline = Date().addingTimeInterval(3)
         while server.message != "Ping" && Date() < deadline {
-            RunLoop.current.run(until: Date().addingTimeInterval(0.05))
+            try await Task.sleep(for: .milliseconds(50))
         }
         XCTAssertEqual(server.message, "Ping")
     }
@@ -107,12 +106,12 @@ final class NCServerE2ETests: XCTestCase {
 
     // MARK: - Helpers
 
-    private func waitForServerReady(port: Int, timeout: TimeInterval = 5) {
+    private func waitForServerReady(port: Int, timeout: TimeInterval = 5) async throws {
         let deadline = Date().addingTimeInterval(timeout)
         while Date() < deadline {
             let fd = socket(AF_INET, SOCK_STREAM, 0)
             guard fd >= 0 else {
-                Thread.sleep(forTimeInterval: 0.05)
+                try await Task.sleep(for: .milliseconds(50))
                 continue
             }
 
@@ -125,7 +124,7 @@ final class NCServerE2ETests: XCTestCase {
             close(fd)
 
             if result == 0 { return }
-            Thread.sleep(forTimeInterval: 0.05)
+            try await Task.sleep(for: .milliseconds(50))
         }
         XCTFail("Server did not start within \(timeout) seconds")
     }

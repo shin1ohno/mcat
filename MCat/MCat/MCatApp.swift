@@ -2,8 +2,6 @@
 //  MCatApp.swift
 //  MCat
 //
-//  Created by Shinichi Ohno on 15/11/2021.
-//
 
 import SwiftUI
 import Combine
@@ -34,10 +32,7 @@ struct MCatApp: App {
         }
 
         func applicationDidFinishLaunching(_ notification: Notification) {
-            let server = self.ncServer
-            Thread.detachNewThread {
-                server.start()
-            }
+            Task { await self.ncServer.start() }
         }
     }
 }

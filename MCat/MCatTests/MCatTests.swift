@@ -2,12 +2,11 @@
 //  MCatTests.swift
 //  MCatTests
 //
-//  Created by Shinichi Ohno on 15/11/2021.
-//
 
 import XCTest
 @testable import MCat
 
+@MainActor
 final class NCServerInitTests: XCTestCase {
 
     func testDefaultInit() {
