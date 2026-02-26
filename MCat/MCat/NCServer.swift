@@ -16,8 +16,9 @@ enum ServerState: Sendable {
 }
 
 @MainActor
+@Observable
 final class NCServer {
-    @Published var message: String
+    var message: String
     private(set) var serverState: ServerState = .stopped
 
     let host: String
