@@ -104,6 +104,38 @@ final class NCServerE2ETests: XCTestCase {
         XCTAssertEqual(r3, "Third\n")
     }
 
+    // MARK: - Server Lifecycle Tests
+
+    func testPortConflictSetsErrorState() async throws {
+        // Bind the same port with a second server to trigger conflict
+        let conflictServer = NCServer(host: "127.0.0.1", port: port)
+        await conflictServer.start()
+
+        guard case .error = conflictServer.serverState else {
+            return XCTFail("Expected .error state on port conflict, got \(conflictServer.serverState)")
+        }
+        XCTAssertTrue(conflictServer.message.hasPrefix("Error:"))
+    }
+
+    func testRestartAfterStop() async throws {
+        // Stop the server started in setUp
+        server.stop()
+        try await Task.sleep(for: .milliseconds(200))
+
+        // Restart on a new port
+        let newPort = Int.random(in: 49152...65535)
+        let newServer = NCServer(host: "127.0.0.1", port: newPort)
+        let task = Task { await newServer.start() }
+        defer {
+            newServer.stop()
+            task.cancel()
+        }
+
+        try await waitForServerReady(port: newPort)
+        let response = try tcpSendReceive("restart", port: newPort)
+        XCTAssertEqual(response, "restart\n")
+    }
+
     // MARK: - Helpers
 
     private func waitForServerReady(port: Int, timeout: TimeInterval = 5) async throws {
@@ -129,12 +161,13 @@ final class NCServerE2ETests: XCTestCase {
         XCTFail("Server did not start within \(timeout) seconds")
     }
 
-    private func tcpSendReceive(_ message: String) throws -> String {
+    private func tcpSendReceive(_ message: String, port: Int? = nil) throws -> String {
+        let targetPort = port ?? self.port!
         let fd = socket(AF_INET, SOCK_STREAM, 0)
         guard fd >= 0 else { throw TCPError.socketCreationFailed }
         defer { close(fd) }
 
-        var addr = makeSockAddr(port: port)
+        var addr = makeSockAddr(port: targetPort)
         let connectResult = withUnsafeMutablePointer(to: &addr) {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
                 connect(fd, $0, socklen_t(MemoryLayout<sockaddr_in>.size))

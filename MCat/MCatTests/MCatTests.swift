@@ -45,4 +45,11 @@ final class NCServerInitTests: XCTestCase {
         let server = NCServer()
         server.stop()
     }
+
+    func testInitialServerState() {
+        let server = NCServer()
+        guard case .stopped = server.serverState else {
+            return XCTFail("Expected .stopped, got \(server.serverState)")
+        }
+    }
 }

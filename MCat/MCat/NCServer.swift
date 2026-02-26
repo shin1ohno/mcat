@@ -50,6 +50,7 @@ final class NCServer {
         }
 
         try? await group.shutdownGracefully()
+        if case .error = self.serverState { return }
         self.serverState = .stopped
     }
 
