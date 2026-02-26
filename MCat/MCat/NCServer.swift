@@ -14,13 +14,14 @@ final class NCServer: @unchecked Sendable {
 
     let host: String
     let port: Int
+    private var serverChannel: Channel?
 
     init(host: String = "::0", port: Int = 9999) {
         (self.host, self.port) = (host, port)
         self.message = "MCat running on \(self.host):\(self.port)"
     }
 
-    func start() -> Void {
+    func start() {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
         let bootstrap = self.bootstrap(group: group)
 
@@ -29,7 +30,12 @@ final class NCServer: @unchecked Sendable {
         }
 
         let channel = try! bootstrap.bind(host: self.host, port: self.port).wait()
+        self.serverChannel = channel
         try! channel.closeFuture.wait()
+    }
+
+    func stop() {
+        self.serverChannel?.close(promise: nil)
     }
 
     private func bootstrap(group: EventLoopGroup) -> ServerBootstrap {

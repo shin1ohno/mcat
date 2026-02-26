@@ -8,26 +8,42 @@
 import XCTest
 @testable import MCat
 
-class MCatTests: XCTestCase {
+final class NCServerInitTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testDefaultInit() {
+        let server = NCServer()
+        XCTAssertEqual(server.host, "::0")
+        XCTAssertEqual(server.port, 9999)
+        XCTAssertEqual(server.message, "MCat running on ::0:9999")
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testCustomInit() {
+        let server = NCServer(host: "127.0.0.1", port: 8080)
+        XCTAssertEqual(server.host, "127.0.0.1")
+        XCTAssertEqual(server.port, 8080)
+        XCTAssertEqual(server.message, "MCat running on 127.0.0.1:8080")
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testCustomHostOnly() {
+        let server = NCServer(host: "localhost")
+        XCTAssertEqual(server.host, "localhost")
+        XCTAssertEqual(server.port, 9999)
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testCustomPortOnly() {
+        let server = NCServer(port: 12345)
+        XCTAssertEqual(server.host, "::0")
+        XCTAssertEqual(server.port, 12345)
     }
 
+    func testMessageUpdate() {
+        let server = NCServer()
+        server.message = "Updated"
+        XCTAssertEqual(server.message, "Updated")
+    }
+
+    func testStopBeforeStartDoesNotCrash() {
+        let server = NCServer()
+        server.stop()
+    }
 }
