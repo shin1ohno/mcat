@@ -7,10 +7,12 @@ import SwiftUI
 
 struct MCatMenu: View {
     let server: NCServer
+    @Environment(\.openWindow) private var openWindow
 
     var body: some View {
         Button("Settings...") {
-            NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+            NSApp.activate()
+            openWindow(id: "settings")
         }
         .keyboardShortcut(",")
 

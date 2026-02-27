@@ -10,6 +10,7 @@ struct SettingsView: View {
     @AppStorage("listenPort") private var listenPort = 9999
 
     var server: NCServer
+    @Environment(\.dismissWindow) private var dismissWindow
 
     @State private var draftHost = "::0"
     @State private var draftPort = "9999"
@@ -27,10 +28,10 @@ struct SettingsView: View {
 
             HStack {
                 Spacer()
-                Button("Apply") {
-                    applySettings()
+                Button("OK") {
+                    applyAndClose()
                 }
-                .disabled(!hasChanges)
+                .keyboardShortcut(.defaultAction)
             }
         }
         .padding(20)
@@ -41,17 +42,13 @@ struct SettingsView: View {
         }
     }
 
-    private var hasChanges: Bool {
-        let portValue = Int(draftPort) ?? listenPort
-        return draftHost != listenHost || portValue != listenPort
-    }
-
-    private func applySettings() {
+    private func applyAndClose() {
         let portValue = Int(draftPort) ?? 9999
         guard (1...65535).contains(portValue) else { return }
 
         listenHost = draftHost
         listenPort = portValue
         server.restart(host: draftHost, port: portValue)
+        dismissWindow(id: "settings")
     }
 }

@@ -26,8 +26,9 @@ struct MCatApp: App {
             }
         }
 
-        Settings {
+        Window("MCat Settings", id: "settings") {
             SettingsView(server: server)
         }
+        .windowResizability(.contentSize)
     }
 }
