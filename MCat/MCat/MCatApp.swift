@@ -8,16 +8,22 @@ import SwiftUI
 @main
 struct MCatApp: App {
     @State private var server = NCServer()
+    @State private var ticker = MarqueeTicker()
 
     var body: some Scene {
         MenuBarExtra {
             MCatMenu(server: server)
         } label: {
             HStack(spacing: 4) {
-                Image(systemName: "network")
-                MarqueeText(text: server.message)
+                if server.message == "MCat running on \(server.host):\(server.port)" {
+                    Image(systemName: "network")
+                }
+                MarqueeText(text: server.message, tick: ticker.value)
             }
-            .task { await server.start() }
+            .task {
+                ticker.start()
+                await server.start()
+            }
         }
     }
 }
