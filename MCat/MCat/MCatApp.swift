@@ -25,5 +25,9 @@ struct MCatApp: App {
                 await server.start()
             }
         }
+
+        Settings {
+            SettingsView(server: server)
+        }
     }
 }

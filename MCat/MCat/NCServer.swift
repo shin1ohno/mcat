@@ -21,15 +21,17 @@ final class NCServer {
     var message: String
     private(set) var serverState: ServerState = .stopped
 
-    let host: String
-    let port: Int
+    private(set) var host: String
+    private(set) var port: Int
     private var serverChannel: Channel?
+    private var serverTask: Task<Void, Never>?
 
     private static let logger = Logger(subsystem: "be.ohno.MCat", category: "NCServer")
 
     init(host: String = "::0", port: Int = 9999) {
-        (self.host, self.port) = (host, port)
-        self.message = "MCat running on \(self.host):\(self.port)"
+        self.host = host
+        self.port = port
+        self.message = "MCat running on \(host):\(port)"
     }
 
     func start() async {
@@ -56,6 +58,19 @@ final class NCServer {
 
     func stop() {
         self.serverChannel?.close(promise: nil)
+    }
+
+    func restart(host: String, port: Int) {
+        self.stop()
+        self.host = host
+        self.port = port
+        self.message = "MCat running on \(host):\(port)"
+        self.serverTask?.cancel()
+        self.serverTask = Task { [weak self] in
+            // Allow the previous server to release the port
+            try? await Task.sleep(for: .milliseconds(200))
+            await self?.start()
+        }
     }
 
     private func makeBootstrap(group: EventLoopGroup) -> ServerBootstrap {

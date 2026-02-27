@@ -21,6 +21,8 @@
 		5E11860D2742B15000283257 /* EchoHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11860C2742B15000283257 /* EchoHandler.swift */; };
 		5E11860E2742B16000283257 /* MarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E11860F2742B16000283257 /* MarqueeText.swift */; };
 		5E1186102742B17000283257 /* MarqueeTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1186112742B17000283257 /* MarqueeTextTests.swift */; };
+		5E1186122742B18000283257 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1186132742B18000283257 /* SettingsView.swift */; };
+		5E1186142742B19000283257 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1186152742B19000283257 /* SettingsTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,8 @@
 		5E11860C2742B15000283257 /* EchoHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EchoHandler.swift; sourceTree = "<group>"; };
 		5E11860F2742B16000283257 /* MarqueeText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeText.swift; sourceTree = "<group>"; };
 		5E1186112742B17000283257 /* MarqueeTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarqueeTextTests.swift; sourceTree = "<group>"; };
+		5E1186132742B18000283257 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5E1186152742B19000283257 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 				5E1186072742B12200283257 /* NCServer.swift */,
 				5E11860C2742B15000283257 /* EchoHandler.swift */,
 				5E11860F2742B16000283257 /* MarqueeText.swift */,
+				5E1186132742B18000283257 /* SettingsView.swift */,
 				5E1185DC2742AFE000283257 /* MCat.entitlements */,
 				5E1185D92742AFE000283257 /* Preview Content */,
 			);
@@ -137,6 +142,7 @@
 				5E1185E52742AFE000283257 /* MCatTests.swift */,
 				5E11860A27430AB100283257 /* NCServerE2ETests.swift */,
 				5E1186112742B17000283257 /* MarqueeTextTests.swift */,
+				5E1186152742B19000283257 /* SettingsTests.swift */,
 			);
 			path = MCatTests;
 			sourceTree = "<group>";
@@ -292,6 +298,7 @@
 				5E1186082742B12200283257 /* NCServer.swift in Sources */,
 				5E11860D2742B15000283257 /* EchoHandler.swift in Sources */,
 				5E11860E2742B16000283257 /* MarqueeText.swift in Sources */,
+				5E1186122742B18000283257 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +309,7 @@
 				5E1185E62742AFE000283257 /* MCatTests.swift in Sources */,
 				5E11860B27430AB200283257 /* NCServerE2ETests.swift in Sources */,
 				5E1186102742B17000283257 /* MarqueeTextTests.swift in Sources */,
+				5E1186142742B19000283257 /* SettingsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
