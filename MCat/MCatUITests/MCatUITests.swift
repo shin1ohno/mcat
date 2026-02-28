@@ -13,6 +13,7 @@ final class MCatUITests: XCTestCase {
         continueAfterFailure = false
     }
 
+    @MainActor
     func testAppLaunches() throws {
         let app = XCUIApplication()
         app.launch()
